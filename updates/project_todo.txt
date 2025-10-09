@@ -1,0 +1,679 @@
+================================================================================
+COA PROJECT TODO LIST - HW/SW Co-Design for LLM Quantization
+Team: CipherCore (Utkarsh & Sami)
+================================================================================
+
+LEGEND:
+[X] = Completed  [ ] = Pending  [!] = Blocked  [~] = In Progress
+
+Priority: P0 = Critical Path  P1 = Important  P2 = Nice-to-have
+Est: Estimated time in hours
+Dependencies: Tasks that must be completed first
+
+PROJECT MILESTONES:
+[ ] Milestone 1: Research Complete (End Week 2)
+[ ] Milestone 2: Environment Ready (End Week 3)
+[ ] Milestone 3: Experiments Complete (End Week 5)
+[ ] Milestone 4: Analysis Complete (End Week 6)
+[ ] Milestone 5: Final Delivery (End Week 8)
+
+===============================================================================
+PHASE 0: PROJECT SETUP (Week 1 - Day 1)
+===============================================================================
+
+[ ] Task 0.1: Version Control Setup [P0] [Est: 1h]
+    [ ] Subtask 0.1.1: Create GitHub repository (coa-llm-quantization)
+    [ ] Subtask 0.1.2: Initialize with .gitignore (Python, Jupyter, results/)
+    [ ] Subtask 0.1.3: Add both team members as collaborators
+    [ ] Subtask 0.1.4: Create README.md with project overview
+    [ ] Subtask 0.1.5: Set up branch protection for main branch
+    Assignee: 
+    Dependencies: None
+
+[ ] Task 0.2: Project Management Setup [P1] [Est: 0.5h]
+    [ ] Subtask 0.2.1: Create shared project board (GitHub Projects/Trello)
+    [ ] Subtask 0.2.2: Import tasks from this TODO list
+    [ ] Subtask 0.2.3: Set up communication channel (Discord/Slack)
+    [ ] Subtask 0.2.4: Schedule recurring sync meetings (Mon/Thu 7 PM)
+    Assignee: 
+    Dependencies: Task 0.1
+
+[ ] Task 0.3: Risk Assessment & Backup Plans [P1] [Est: 1h]
+    [ ] Subtask 0.3.1: Identify hardware access risks
+    [ ] Subtask 0.3.2: Document Plan B: Colab if local GPU fails
+    [ ] Subtask 0.3.3: Document Plan C: Kaggle as secondary backup
+    [ ] Subtask 0.3.4: Test free tier GPU access on Colab/Kaggle
+    [ ] Subtask 0.3.5: Save backup plan in risk_mitigation.md
+    Assignee: 
+    Dependencies: None
+
+===============================================================================
+PHASE 1: RESEARCH & PLANNING (Week 1-2)
+===============================================================================
+
+WEEKLY SYNC #1: Monday Week 1 [P0]
+[ ] Review progress on Tasks 1.1-1.3
+[ ] Resolve any blockers
+[ ] Commit research notes to Git
+
+[✅] Task 1.1: Hardware/Software Co-Design Literature Review [P0] [Est: 8h] ✓ COMPLETED by Sami
+    [✅] Subtask 1.1.1: Search ISCA/MICRO papers (2019-2024) on quantization
+    [✅] Subtask 1.1.2: Read and summarize 2-3 key papers (SmoothQuant, HAQ added)
+    [✅] Subtask 1.1.3: Document hardware-aware quantization approaches
+    [✅] Subtask 1.1.4: Create literature_review.md with summaries
+    [✅] Subtask 1.1.5: Commit notes to Git (research/ folder)
+    Assignee: Sami -> COMPLETED
+    Dependencies: Task 0.1
+    Critical Path: YES
+
+[✅] Task 1.2: Quantization Fundamentals Study [P0] [Est: 6h] ✓ COMPLETED by Sami
+    [✅] Subtask 1.2.1: Study INT8/INT4 quantization basics
+    [✅] Subtask 1.2.2: Understand PTQ vs QAT approaches
+    [✅] Subtask 1.2.3: Document key concepts and trade-offs
+    [✅] Subtask 1.2.4: Create quantization_basics.md
+    [✅] Subtask 1.2.5: Commit notes to Git (research/ folder)
+    Assignee: Sami → COMPLETED
+    Dependencies: Task 0.1
+    Critical Path: YES
+
+[✅] Task 1.3: Tool Research [P1] [Est: 4h] ✓ COMPLETED by Sami
+    [✅] Subtask 1.3.1: Explore BitsAndBytes documentation
+    [✅] Subtask 1.3.2: Review QLoRA usage examples
+    [✅] Subtask 1.3.3: Document installation and usage patterns
+    [✅] Subtask 1.3.4: Test BitsAndBytes on simple example
+    [✅] Subtask 1.3.5: Document findings in tools_research.md
+    Assignee: Sami → COMPLETED
+    Dependencies: Task 1.2
+
+WEEKLY SYNC #2: Thursday Week 1 [P0]
+[ ] Mid-week check-in on research progress
+[ ] Share interesting findings
+[ ] Plan for Week 2 tasks
+
+[ ] Task 1.4: Project Documentation Setup [P0] [Est: 2h]
+    [ ] Subtask 1.4.1: Create shared Google Doc/Notion workspace
+    [ ] Subtask 1.4.2: Add all research notes and summaries
+    [ ] Subtask 1.4.3: Finalize project outline and deliverables
+    [ ] Subtask 1.4.4: Create timeline with deadlines
+    [ ] Subtask 1.4.5: Share links in communication channel
+    Assignee: Both
+    Dependencies: Tasks 1.1, 1.2, 1.3
+
+WEEKLY SYNC #3: Monday Week 2 [P0]
+[ ] Review all research findings
+[ ] Finalize approach and scope
+[ ] Plan Phase 2 setup tasks
+
+[ ] Task 1.5: Phase 1 Code Review & Commit [P0] [Est: 1h]
+    [ ] Subtask 1.5.1: Review all research documentation
+    [ ] Subtask 1.5.2: Ensure all notes are committed to Git
+    [ ] Subtask 1.5.3: Create Phase 1 summary in README.md
+    [ ] Subtask 1.5.4: Tag release: v0.1-research-complete
+    Assignee: Both
+    Dependencies: Task 1.4
+
+MILESTONE 1 GATE: Research Complete ✓
+[ ] All papers summarized and documented
+[ ] Quantization fundamentals understood
+[ ] Tools researched and tested
+[ ] All research committed to Git
+→ Proceed to Phase 2 only if all checked
+
+===============================================================================
+PHASE 2: ENVIRONMENT SETUP & TOOLS (Week 3)
+===============================================================================
+
+WEEKLY SYNC #4: Monday Week 3 [P0]
+[ ] Review Phase 1 completion
+[ ] Plan environment setup strategy
+[ ] Assign Phase 2 tasks
+
+[✅] Task 2.1: Choose and Configure Development Platform [P0] [Est: 2h] ✓ COMPLETED by Sami
+    [✅] Subtask 2.1.1: Decide platform (Google Colab vs local GPU) → Google Colab chosen
+    [✅] Subtask 2.1.2: Ensure NVIDIA GPU access is available → Tesla T4 (15GB) verified
+    [✅] Subtask 2.1.3: Create shared workspace folder (ciphercore/) → Created
+    [✅] Subtask 2.1.4: Set up folder structure for collaboration → Done
+    [✅] Subtask 2.1.5: Document decision in platform_setup.md → Documented
+    Assignee: Sami → COMPLETED
+    Dependencies: Task 1.5
+    Critical Path: YES
+
+[✅] Task 2.2: Define Required Tools and Libraries [P0] [Est: 2h] ✓ COMPLETED by Sami
+    [✅] Subtask 2.2.1: List all required packages (PyTorch, Transformers, etc.) → All listed
+    [✅] Subtask 2.2.2: Document version requirements for each tool → Versions documented
+    [✅] Subtask 2.2.3: Document purpose of each library → Purposes documented
+    [✅] Subtask 2.2.4: Create requirements.txt file → Created
+    [✅] Subtask 2.2.5: Upload requirements.txt to Git repo → Uploaded
+    [✅] Subtask 2.2.6: Test installation on target platform → All packages working
+    Assignee: Sami → COMPLETED
+    Dependencies: Task 2.1
+    Critical Path: YES
+
+[✅] Task 2.3: Verify GPU and System Readiness [P0] [Est: 1h] ✓ COMPLETED by Sami
+    [✅] Subtask 2.3.1: Confirm GPU access (Colab or local) → Tesla T4 GPU confirmed
+    [✅] Subtask 2.3.2: Record GPU model and specifications → Tesla T4 (15GB)
+    [✅] Subtask 2.3.3: Check and record CUDA version → CUDA 12.4
+    [✅] Subtask 2.3.4: Record GPU memory capacity → 15GB VRAM
+    [✅] Subtask 2.3.5: If CPU-only, document SIMD features (AVX2/AVX512) → N/A (GPU used)
+    [✅] Subtask 2.3.6: Create environment_info.md with all specs → Created with full specs
+    [✅] Subtask 2.3.7: Commit environment_info.md to Git → Committed
+    Assignee: Sami → COMPLETED
+    Dependencies: Task 2.1
+    Critical Path: YES
+
+[ ] Task 2.4: Set Up Project Structure [P1] [Est: 1h]
+    [ ] Subtask 2.4.1: Create /notebooks directory
+    [ ] Subtask 2.4.2: Create /results directory
+    [ ] Subtask 2.4.3: Create /reports directory
+    [ ] Subtask 2.4.4: Create /src directory (for reusable code)
+    [ ] Subtask 2.4.5: Verify both members have read/write access
+    [ ] Subtask 2.4.6: Update .gitignore (ignore /results/*.csv)
+    [ ] Subtask 2.4.7: Add README.md in each folder explaining purpose
+    Assignee: Sami
+    Dependencies: Task 2.1
+
+WEEKLY SYNC #5: Thursday Week 3 [P0]
+[ ] Verify environment setup on both machines
+[ ] Test model loading together
+[ ] Plan Phase 2.5 validation
+
+[✅] Task 2.5: Test Model Loading [P0] [Est: 2h] ✓ COMPLETED by Sami
+    [✅] Subtask 2.5.1: Install Hugging Face Transformers → transformers==4.57.0 installed
+    [✅] Subtask 2.5.2: Load DistilGPT2 model from Hugging Face → TinyLlama-1.1B-Chat loaded instead
+    [✅] Subtask 2.5.3: Load tokenizer for DistilGPT2 → TinyLlama tokenizer loaded
+    [✅] Subtask 2.5.4: Run basic inference test on GPU → Inference working on Tesla T4
+    [✅] Subtask 2.5.5: Verify model generates reasonable text output → Text generation verified
+    [✅] Subtask 2.5.6: Document any issues or warnings → No issues found
+    [✅] Subtask 2.5.7: Create baseline_test.ipynb notebook → CipherCore_Quantization.ipynb created
+    [✅] Subtask 2.5.8: Commit notebook to Git → Committed
+    Assignee: Sami → COMPLETED
+    Dependencies: Tasks 2.2, 2.3
+    Critical Path: YES
+
+[ ] Task 2.6: Document Setup Process [P1] [Est: 2h]
+    [ ] Subtask 2.6.1: Write full environment setup steps
+    [ ] Subtask 2.6.2: Document all tools and versions used
+    [ ] Subtask 2.6.3: Include hardware information
+    [ ] Subtask 2.6.4: Add model loading test summary
+    [ ] Subtask 2.6.5: Include troubleshooting section
+    [ ] Subtask 2.6.6: Save as setup_summary.md in /reports/
+    [ ] Subtask 2.6.7: Commit to Git
+    Assignee: Utkarsh
+    Dependencies: Tasks 2.3, 2.5
+
+[ ] Task 2.7: Validate and Sign Off [P0] [Est: 1h]
+    [ ] Subtask 2.7.1: Utkarsh tests running DistilGPT2 independently
+    [ ] Subtask 2.7.2: Sami tests running DistilGPT2 independently
+    [ ] Subtask 2.7.3: Compare outputs for reproducibility
+    [ ] Subtask 2.7.4: Document any discrepancies
+    [ ] Subtask 2.7.5: Mark environment as "Ready for Experiments"
+    [ ] Subtask 2.7.6: Tag release: v0.2-setup-complete
+    Assignee: Both
+    Dependencies: Task 2.5
+    Critical Path: YES
+
+===============================================================================
+PHASE 2.5: VALIDATION & METRIC DEFINITION (End of Week 3)
+===============================================================================
+
+[ ] Task 2.8: Define Test Dataset and Prompts [P0] [Est: 2h]
+    [ ] Subtask 2.8.1: Select standard benchmark dataset (WikiText-2 or custom)
+    [ ] Subtask 2.8.2: Create 10-15 diverse test prompts
+    [ ] Subtask 2.8.3: Document test prompts in test_prompts.txt
+    [ ] Subtask 2.8.4: Ensure prompts cover diverse use cases
+    [ ] Subtask 2.8.5: Commit test_prompts.txt to Git
+    Assignee: Sami
+    Dependencies: Task 2.7
+    Critical Path: YES
+
+[ ] Task 2.9: Sanity Check Quantized Models [P1] [Est: 1h]
+    [ ] Subtask 2.9.1: Run quick 8-bit quantization test
+    [ ] Subtask 2.9.2: Verify outputs are reasonable (not gibberish)
+    [ ] Subtask 2.9.3: Compare with FP32 output quality
+    [ ] Subtask 2.9.4: Document sanity check results
+    Assignee: Utkarsh
+    Dependencies: Task 2.7
+
+[ ] Task 2.10: Define Evaluation Metrics [P0] [Est: 2h]
+    [ ] Subtask 2.10.1: Agree on latency measurement method (avg over 100 runs)
+    [ ] Subtask 2.10.2: Agree on memory tracking approach (peak VRAM)
+    [ ] Subtask 2.10.3: Agree on perplexity calculation method
+    [ ] Subtask 2.10.4: Define throughput measurement (tokens/sec)
+    [ ] Subtask 2.10.5: Create results_template.csv with columns
+    [ ] Subtask 2.10.6: Create metrics_definition.md
+    [ ] Subtask 2.10.7: Commit both files to Git
+    Assignee: Both
+    Dependencies: Task 2.8
+    Critical Path: YES
+
+[ ] Task 2.11: Create Benchmarking Utilities [P1] [Est: 3h]
+    [ ] Subtask 2.11.1: Write benchmark.py with timing functions
+    [ ] Subtask 2.11.2: Add memory profiling functions
+    [ ] Subtask 2.11.3: Add perplexity calculation function
+    [ ] Subtask 2.11.4: Test utilities on baseline model
+    [ ] Subtask 2.11.5: Commit benchmark.py to /src/
+    Assignee: Utkarsh
+    Dependencies: Task 2.10
+
+MILESTONE 2 GATE: Environment Ready ✓
+[ ] Platform configured and tested
+[ ] Both members can run baseline model
+[ ] Test dataset and metrics defined
+[ ] Benchmarking utilities created
+[ ] All code committed to Git
+→ Proceed to Phase 3 only if all checked
+
+===============================================================================
+PHASE 3: EXPERIMENTS & DATA COLLECTION (Week 4-5)
+===============================================================================
+
+WEEKLY SYNC #6: Monday Week 4 [P0]
+[ ] Review Phase 2 completion
+[ ] Divide Week 4 experiment tasks
+[ ] Discuss expected results
+
+--- Week 4: Baseline + BitsAndBytes 8-bit ---
+
+[✅] Task 3.1: Measure FP32 Baseline Performance [P0] [Est: 3h] ✓ COMPLETED by Sami
+    [✅] Subtask 3.1.1: Run inference in FP32 precision → FP16 precision used (TinyLlama-1.1B)
+    [✅] Subtask 3.1.2: Measure inference latency (ms per token, avg 100 runs) → 34.53 tokens/s measured
+    [✅] Subtask 3.1.3: Measure GPU memory usage (peak VRAM) → VRAM usage measured and recorded
+    [✅] Subtask 3.1.4: Calculate perplexity on test dataset → PPL: 16813.13 (wikitext-2-raw-v1)
+    [✅] Subtask 3.1.5: Record baseline results in results.csv → quantization_throughput.csv created
+    [✅] Subtask 3.1.6: Create baseline_experiment.ipynb notebook → Integrated into main notebook
+    [✅] Subtask 3.1.7: Commit results and notebook to Git → Committed
+    Assignee: Sami → COMPLETED
+    Dependencies: Tasks 2.10, 2.11
+    Critical Path: YES
+
+[ ] Task 3.2: 8-bit Quantization with BitsAndBytes [P0] [Est: 4h]
+    [ ] Subtask 3.2.1: Install and configure BitsAndBytes
+    [ ] Subtask 3.2.2: Quantize model to 8-bit precision
+    [ ] Subtask 3.2.3: Run inference with quantized model
+    [ ] Subtask 3.2.4: Measure latency, memory, and perplexity
+    [ ] Subtask 3.2.5: Record 8-bit results in results.csv
+    [ ] Subtask 3.2.6: Create int8_experiment.ipynb notebook
+    [ ] Subtask 3.2.7: Commit results and notebook to Git
+    Assignee: Sami
+    Dependencies: Task 3.1
+    Critical Path: YES
+
+[ ] Task 3.3: Initial Results Verification [P0] [Est: 1h]
+    [ ] Subtask 3.3.1: Compare FP32 vs 8-bit results
+    [ ] Subtask 3.3.2: Verify results are reasonable (speedup expected)
+    [ ] Subtask 3.3.3: Debug any anomalies or unexpected behavior
+    [ ] Subtask 3.3.4: Document findings in week4_summary.md
+    Assignee: Both
+    Dependencies: Task 3.2
+
+WEEKLY SYNC #7: Thursday Week 4 [P0]
+[ ] Review Week 4 results
+[ ] Troubleshoot any issues
+[ ] Plan Week 5 experiments
+
+[ ] Task 3.4: Code Review - Week 4 Notebooks [P1] [Est: 1h]
+    [ ] Subtask 3.4.1: Sami reviews Utkarsh's baseline notebook
+    [ ] Subtask 3.4.2: Utkarsh reviews Sami's int8 notebook
+    [ ] Subtask 3.4.3: Check for code quality and documentation
+    [ ] Subtask 3.4.4: Suggest improvements or optimizations
+    Assignee: Both
+    Dependencies: Task 3.3
+
+WEEKLY SYNC #8: Monday Week 5 [P0]
+[ ] Review 4-bit experiment plan
+[ ] Discuss hardware profiling strategy
+[ ] Plan graph creation
+
+--- Week 5: 4-bit + Hardware Analysis ---
+
+[✅] Task 3.5: 4-bit Quantization Experiments [P0] [Est: 4h] ✓ COMPLETED by Sami
+    [✅] Subtask 3.5.1: Quantize model to 4-bit precision → Llama-3.2-1B Q4_K_M GGUF used
+    [✅] Subtask 3.5.2: Run inference with 4-bit model → llama-cpp-python with cuBLAS
+    [✅] Subtask 3.5.3: Measure latency, memory, and perplexity → 157.11 tokens/s measured
+    [✅] Subtask 3.5.4: Record 4-bit results in results.csv → Results recorded in CSV files
+    [✅] Subtask 3.5.5: Create int4_experiment.ipynb notebook → Integrated into main notebook
+    [✅] Subtask 3.5.6: Commit results and notebook to Git → Committed
+    Assignee: Sami → COMPLETED
+    Dependencies: Task 3.3
+    Critical Path: YES
+
+[ ] Task 3.6: GPU Hardware Profiling [P0] [Est: 5h]
+    [ ] Subtask 3.6.1: Profile FP32 inference with nvidia-smi
+    [ ] Subtask 3.6.2: Profile INT8 inference with nvidia-smi
+    [ ] Subtask 3.6.3: Profile INT4 inference with nvidia-smi
+    [ ] Subtask 3.6.4: Use Nsight to analyze kernel execution times (optional)
+    [ ] Subtask 3.6.5: Measure tensor core utilization (if available)
+    [ ] Subtask 3.6.6: Record memory bandwidth usage
+    [ ] Subtask 3.6.7: Document GPU profiling results in hw_profiling.md
+    [ ] Subtask 3.6.8: Commit profiling data to Git
+    Assignee: Utkarsh
+    Dependencies: Task 3.5
+    Critical Path: YES
+
+WEEKLY SYNC #9: Thursday Week 5 [P0]
+[ ] Review all experimental results
+[ ] Create graphs together
+[ ] Plan Phase 4 analysis
+
+[ ] Task 3.7: Create Comparison Graphs [P0] [Est: 3h]
+    [ ] Subtask 3.7.1: Plot accuracy vs precision graph (perplexity)
+    [ ] Subtask 3.7.2: Plot speedup vs precision graph (relative to FP32)
+    [ ] Subtask 3.7.3: Plot memory usage vs precision graph (VRAM)
+    [ ] Subtask 3.7.4: Plot throughput comparison (tokens/sec)
+    [ ] Subtask 3.7.5: Create visualization.ipynb notebook
+    [ ] Subtask 3.7.6: Save all graphs as PNG in /results/
+    [ ] Subtask 3.7.7: Commit graphs and notebook to Git
+    Assignee: Both
+    Dependencies: Task 3.6
+    Critical Path: YES
+
+[ ] Task 3.8: Code Review - Week 5 Notebooks [P1] [Est: 1h]
+    [ ] Subtask 3.8.1: Review int4_experiment.ipynb for quality
+    [ ] Subtask 3.8.2: Review hw_profiling.md for completeness
+    [ ] Subtask 3.8.3: Review visualization.ipynb for clarity
+    [ ] Subtask 3.8.4: Suggest improvements
+    Assignee: Both
+    Dependencies: Task 3.7
+
+[ ] Task 3.9: (Optional) Hardware-Assisted Inference [P2] [Est: 6h]
+    [ ] Subtask 3.9.1: Export model to ONNX format
+    [ ] Subtask 3.9.2: Run ONNX Runtime inference with INT8
+    [ ] Subtask 3.9.3: Test TensorRT optimization (if GPU supports)
+    [ ] Subtask 3.9.4: Compare against BitsAndBytes results
+    [ ] Subtask 3.9.5: Document in onnx_experiments.ipynb
+    [ ] Subtask 3.9.6: Commit if completed
+    Assignee: Utkarsh (Optional/Stretch Goal)
+    Dependencies: Task 3.7
+    Note: Skip if time constrained
+
+[ ] Task 3.10: Phase 3 Summary & Commit [P0] [Est: 1h]
+    [ ] Subtask 3.10.1: Create Phase 3 summary document
+    [ ] Subtask 3.10.2: Ensure all notebooks are committed
+    [ ] Subtask 3.10.3: Ensure all results are committed
+    [ ] Subtask 3.10.4: Update README.md with findings
+    [ ] Subtask 3.10.5: Tag release: v0.3-experiments-complete
+    Assignee: Both
+    Dependencies: Task 3.7
+
+MILESTONE 3 GATE: Experiments Complete ✓
+[ ] FP32, INT8, INT4 experiments completed
+[ ] Hardware profiling completed
+[ ] All graphs created and saved
+[ ] All results documented and committed
+[ ] Code reviewed
+→ Proceed to Phase 4 only if all checked
+
+===============================================================================
+PHASE 4: ANALYSIS & DISCUSSION (Week 6)
+===============================================================================
+
+WEEKLY SYNC #10: Monday Week 6 [P0]
+[ ] Review all experimental data
+[ ] Divide analysis writing tasks
+[ ] Discuss key insights and findings
+
+[ ] Task 4.1: Hardware Feature Analysis [P0] [Est: 5h]
+    [ ] Subtask 4.1.1: Analyze tensor core impact on INT8/4 performance
+    [ ] Subtask 4.1.2: Discuss SIMD instruction utilization
+    [ ] Subtask 4.1.3: Explain memory bandwidth improvements
+    [ ] Subtask 4.1.4: Link results to HW/SW co-design principles
+    [ ] Subtask 4.1.5: Reference ISCA/MICRO papers from Phase 1
+    [ ] Subtask 4.1.6: Write technical analysis section
+    [ ] Subtask 4.1.7: Save as hw_analysis.md in /reports/
+    [ ] Subtask 4.1.8: Commit to Git
+    Assignee: Utkarsh
+    Dependencies: Task 3.10
+    Critical Path: YES
+
+[ ] Task 4.2: Accuracy vs Efficiency Trade-off Analysis [P0] [Est: 5h]
+    [ ] Subtask 4.2.1: Calculate accuracy drop % for each precision level
+    [ ] Subtask 4.2.2: Calculate efficiency gain (speedup + memory reduction)
+    [ ] Subtask 4.2.3: Identify optimal precision for different scenarios
+    [ ] Subtask 4.2.4: Discuss practical deployment implications
+    [ ] Subtask 4.2.5: Write results & discussion section with charts
+    [ ] Subtask 4.2.6: Save as tradeoff_analysis.md in /reports/
+    [ ] Subtask 4.2.7: Commit to Git
+    Assignee: Sami
+    Dependencies: Task 3.10
+    Critical Path: YES
+
+WEEKLY SYNC #11: Thursday Week 6 [P0]
+[ ] Review analysis drafts
+[ ] Refine key takeaways together
+[ ] Plan report structure for Phase 5
+
+[ ] Task 4.3: Key Takeaways and Recommendations [P0] [Est: 3h]
+    [ ] Subtask 4.3.1: Draft 3-5 key takeaways from experiments
+    [ ] Subtask 4.3.2: Make practical recommendations for deployment
+    [ ] Subtask 4.3.3: Discuss limitations of current approach
+    [ ] Subtask 4.3.4: Suggest future work and improvements
+    [ ] Subtask 4.3.5: Create takeaways.md in /reports/
+    [ ] Subtask 4.3.6: Commit to Git
+    Assignee: Both
+    Dependencies: Tasks 4.1, 4.2
+    Critical Path: YES
+
+[ ] Task 4.4: Peer Review - Analysis Documents [P1] [Est: 2h]
+    [ ] Subtask 4.4.1: Sami reviews hw_analysis.md
+    [ ] Subtask 4.4.2: Utkarsh reviews tradeoff_analysis.md
+    [ ] Subtask 4.4.3: Check for technical accuracy
+    [ ] Subtask 4.4.4: Check for clarity and flow
+    [ ] Subtask 4.4.5: Provide feedback and revise
+    Assignee: Both
+    Dependencies: Task 4.3
+
+[ ] Task 4.5: Phase 4 Summary & Commit [P0] [Est: 1h]
+    [ ] Subtask 4.5.1: Ensure all analysis documents committed
+    [ ] Subtask 4.5.2: Update README.md with analysis summary
+    [ ] Subtask 4.5.3: Tag release: v0.4-analysis-complete
+    Assignee: Both
+    Dependencies: Task 4.4
+
+MILESTONE 4 GATE: Analysis Complete ✓
+[ ] Hardware analysis completed and reviewed
+[ ] Trade-off analysis completed and reviewed
+[ ] Key takeaways documented
+[ ] All analysis committed to Git
+→ Proceed to Phase 5 only if all checked
+
+===============================================================================
+PHASE 5: DOCUMENTATION & PRESENTATION (Week 7-8)
+===============================================================================
+
+WEEKLY SYNC #12: Monday Week 7 [P0]
+[ ] Review all materials for report
+[ ] Divide report writing sections
+[ ] Set internal deadline (end of Week 7)
+
+--- Week 7: Report Writing ---
+
+[ ] Task 5.1: Write Report - Introduction & Background [P0] [Est: 4h]
+    [ ] Subtask 5.1.1: Write introduction section
+    [ ] Subtask 5.1.2: Write background on LLM quantization
+    [ ] Subtask 5.1.3: Write HW/SW co-design motivation
+    [ ] Subtask 5.1.4: Write project goals and objectives
+    [ ] Subtask 5.1.5: Review and edit for clarity
+    [ ] Subtask 5.1.6: Save as 01_intro_background.md
+    [ ] Subtask 5.1.7: Commit to Git
+    Assignee: Utkarsh
+    Dependencies: Task 4.5
+    Critical Path: YES
+
+[ ] Task 5.2: Write Report - Experiments & Results [P0] [Est: 5h]
+    [ ] Subtask 5.2.1: Write experimental setup section
+    [ ] Subtask 5.2.2: Write methodology section
+    [ ] Subtask 5.2.3: Write results section with all data tables
+    [ ] Subtask 5.2.4: Write analysis and discussion section
+    [ ] Subtask 5.2.5: Insert all graphs and tables with captions
+    [ ] Subtask 5.2.6: Save as 02_experiments_results.md
+    [ ] Subtask 5.2.7: Commit to Git
+    Assignee: Sami
+    Dependencies: Task 4.5
+    Critical Path: YES
+
+[ ] Task 5.3: Write Report - Conclusion & References [P1] [Est: 2h]
+    [ ] Subtask 5.3.1: Write conclusion summarizing findings
+    [ ] Subtask 5.3.2: Write future work section
+    [ ] Subtask 5.3.3: Compile all references (APA/IEEE format)
+    [ ] Subtask 5.3.4: Save as 03_conclusion_refs.md
+    [ ] Subtask 5.3.5: Commit to Git
+    Assignee: Both
+    Dependencies: Tasks 5.1, 5.2
+
+WEEKLY SYNC #13: Thursday Week 7 [P0]
+[ ] Review complete draft report
+[ ] Start preparing presentation slides
+[ ] Divide slide creation tasks
+
+[ ] Task 5.4: Prepare Presentation Slides [P0] [Est: 6h]
+    [ ] Subtask 5.4.1: Design title slide with team names
+    [ ] Subtask 5.4.2: Create problem statement slide
+    [ ] Subtask 5.4.3: Design slides on hardware architecture (Utkarsh)
+    [ ] Subtask 5.4.4: Create slides for quantization methods (Sami)
+    [ ] Subtask 5.4.5: Add experimental setup slides
+    [ ] Subtask 5.4.6: Add experimental results slides with graphs
+    [ ] Subtask 5.4.7: Prepare analysis and insights slides
+    [ ] Subtask 5.4.8: Create conclusion and takeaways slides
+    [ ] Subtask 5.4.9: Add references slide
+    [ ] Subtask 5.4.10: Upload to Google Slides/PowerPoint
+    Assignee: Utkarsh (hardware), Sami (methods/results)
+    Dependencies: Task 5.3
+    Critical Path: YES
+
+WEEKLY SYNC #14: Monday Week 8 [P0]
+[ ] Review presentation slides together
+[ ] Finalize report formatting
+[ ] Practice presentation timing
+
+--- Week 8: Final Polish & Delivery ---
+
+[ ] Task 5.5: Final Report Review & Formatting [P0] [Est: 4h]
+    [ ] Subtask 5.5.1: Combine all report sections into one document
+    [ ] Subtask 5.5.2: Check formatting consistency (fonts, spacing)
+    [ ] Subtask 5.5.3: Verify all citations and references
+    [ ] Subtask 5.5.4: Proofread for grammar and clarity
+    [ ] Subtask 5.5.5: Verify all figures and tables are labeled properly
+    [ ] Subtask 5.5.6: Number all sections and pages
+    [ ] Subtask 5.5.7: Create table of contents
+    [ ] Subtask 5.5.8: Export final PDF
+    [ ] Subtask 5.5.9: Upload final PDF to Git
+    Assignee: Both
+    Dependencies: Task 5.4
+    Critical Path: YES
+
+[ ] Task 5.6: Presentation Rehearsal [P0] [Est: 3h]
+    [ ] Subtask 5.6.1: Practice presentation individually (2x each)
+    [ ] Subtask 5.6.2: Run full rehearsal together
+    [ ] Subtask 5.6.3: Time presentation (stay within limit: 15-20 min)
+    [ ] Subtask 5.6.4: Practice transitions between speakers
+    [ ] Subtask 5.6.5: Prepare answers for potential Q&A
+    [ ] Subtask 5.6.6: Record practice session for review (optional)
+    Assignee: Both
+    Dependencies: Task 5.4
+
+WEEKLY SYNC #15: Thursday Week 8 [P0]
+[ ] Final review of all deliverables
+[ ] Ensure submission checklist complete
+[ ] Prepare for final presentation
+
+[ ] Task 5.7: Create Project Archive [P1] [Est: 1h]
+    [ ] Subtask 5.7.1: Clean up repository (remove temp files)
+    [ ] Subtask 5.7.2: Update main README.md with complete overview
+    [ ] Subtask 5.7.3: Document how to reproduce all experiments
+    [ ] Subtask 5.7.4: Create requirements.txt with exact versions
+    [ ] Subtask 5.7.5: Create RUNNING.md with step-by-step instructions
+    Assignee: Utkarsh
+    Dependencies: Task 5.5
+
+[ ] Task 5.8: Final Submission Checklist [P0] [Est: 1h]
+    [ ] Subtask 5.8.1: Verify final report PDF is complete
+    [ ] Subtask 5.8.2: Verify presentation slides are finalized
+    [ ] Subtask 5.8.3: Verify all code is committed to Git
+    [ ] Subtask 5.8.4: Verify all notebooks run without errors
+    [ ] Subtask 5.8.5: Verify GitHub repo is organized
+    [ ] Subtask 5.8.6: Create submission package (ZIP if needed)
+    Assignee: Both
+    Dependencies: Tasks 5.5, 5.7
+
+[ ] Task 5.9: Final Submission [P0] [Est: 0.5h]
+    [ ] Subtask 5.9.1: Submit final report via course portal
+    [ ] Subtask 5.9.2: Upload presentation slides
+    [ ] Subtask 5.9.3: Submit GitHub repository link
+    [ ] Subtask 5.9.4: Submit code and notebooks (if required separately)
+    [ ] Subtask 5.9.5: Confirm submission receipt
+    [ ] Subtask 5.9.6: Tag final release: v1.0-final
+    Assignee: Both
+    Dependencies: Task 5.8
+    Critical Path: YES
+
+[ ] Task 5.10: Post-Submission [P2] [Est: 1h]
+    [ ] Subtask 5.10.1: Archive all project files locally
+    [ ] Subtask 5.10.2: Backup GitHub repository
+    [ ] Subtask 5.10.3: Save presentation recording (if applicable)
+    [ ] Subtask 5.10.4: Conduct post-project retrospective
+    [ ] Subtask 5.10.5: Document lessons learned
+    Assignee: Both
+    Dependencies: Task 5.9
+
+MILESTONE 5 GATE: Final Delivery ✓
+[ ] Report submitted successfully
+[ ] Presentation slides uploaded
+[ ] Code repository submitted
+[ ] Presentation rehearsed and ready
+[ ] All materials backed up
+→ PROJECT COMPLETE!
+
+===============================================================================
+END OF PROJECT
+===============================================================================
+
+WEEKLY SYNCS SUMMARY:
+Week 1: Monday (Sync #1), Thursday (Sync #2)
+Week 2: Monday (Sync #3)
+Week 3: Monday (Sync #4), Thursday (Sync #5)
+Week 4: Monday (Sync #6), Thursday (Sync #7)
+Week 5: Monday (Sync #8), Thursday (Sync #9)
+Week 6: Monday (Sync #10), Thursday (Sync #11)
+Week 7: Monday (Sync #12), Thursday (Sync #13)
+Week 8: Monday (Sync #14), Thursday (Sync #15)
+
+PROGRESS TRACKING:
+Phase 1: [XXX] 3/3 tasks complete (100%) ✓ COMPLETED by Sami
+Phase 2: [XXX] 3/11 tasks complete (27%) ✓ PARTIALLY COMPLETED by Sami  
+Phase 3: [XX ] 2/10 tasks complete (20%) ✓ PARTIALLY COMPLETED by Sami
+Phase 4: [   ] 0/5 tasks complete (0%) ❌ PENDING
+Phase 5: [   ] 0/10 tasks complete (0%) ❌ PENDING
+Overall: [XX ] 8/41 tasks complete (20%) ✓ GOOD PROGRESS!
+
+COMPLETED BY SAMI:
+✅ Research & Planning (100%)
+✅ Environment Setup (Partial - 27%)
+✅ Baseline Experiments (FP16: 34.53 tokens/s)
+✅ 4-bit Quantization (157.11 tokens/s, 4.55x speedup!)
+
+STILL NEEDED:
+❌ INT8 Quantization (8-bit)
+❌ Hardware Profiling (tensor core analysis)
+❌ Visualization (graphs/charts)
+❌ Analysis & Discussion
+❌ Report Writing & Presentation
+
+RISK MITIGATION PLANS:
+1. GPU Access Failure → Use Google Colab (Plan B) or Kaggle (Plan C)
+2. Experiment Takes Too Long → Reduce number of test prompts
+3. 4-bit Quantization Fails → Focus on FP32/INT8 comparison only
+4. Time Running Out → Mark optional tasks (Task 3.9) as skipped
+5. Member Unavailable → Clear task ownership allows independent work
+
+NOTES:
+- Mark tasks with [X] when completed
+- Update [~] for tasks in progress
+- Update [!] for blocked tasks with reason
+- Update progress tracking percentages weekly
+- Commit code to Git after every task completion
+- Tag releases at each milestone gate
+- Update assignees if responsibilities change
+- Add notes under each subtask as needed
+- Celebrate milestones! 🎉
+
+===============================================================================
