@@ -390,7 +390,7 @@ WEEKLY SYNC #9: Thursday Week 5 [P0]
     [ ] Subtask 3.9.4: Compare against BitsAndBytes results
     [ ] Subtask 3.9.5: Document in onnx_experiments.ipynb
     [ ] Subtask 3.9.6: Commit if completed
-    Assignee: Utkarsh (Optional/Stretch Goal)
+    Assignee: sami (Optional/Stretch Goal)
     Dependencies: Task 3.7
     Note: Skip if time constrained
 
