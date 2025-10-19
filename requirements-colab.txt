@@ -1,0 +1,9 @@
+onnx==1.16.2
+onnxruntime-gpu==1.19.2
+torch==2.8.0+cu126
+torchvision==0.23.0+cu126
+torchaudio==2.8.0+cu126
+transformers==4.57.0
+datasets==2.20.0
+accelerate==1.1.0
+numpy==1.26.4
