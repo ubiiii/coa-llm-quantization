@@ -384,12 +384,15 @@ WEEKLY SYNC #9: Thursday Week 5 [P0]
     Dependencies: Task 3.7
 
 [ ] Task 3.9: (Optional) Hardware-Assisted Inference [P2] [Est: 6h]
-    [ ] Subtask 3.9.1: Export model to ONNX format
-    [ ] Subtask 3.9.2: Run ONNX Runtime inference with INT8
-    [ ] Subtask 3.9.3: Test TensorRT optimization (if GPU supports)
-    [ ] Subtask 3.9.4: Compare against BitsAndBytes results
-    [ ] Subtask 3.9.5: Document in onnx_experiments.ipynb
-    [ ] Subtask 3.9.6: Commit if completed
+     [✅] 3.9.1 Export model to ONNX (DistilGPT2 → `onnx/model.onnx`)
+  [✅] 3.9.2 Run ONNX Runtime quantization (dynamic INT8) + benchmark (CUDA EP)
+      - CUDA EP: FP32 1.22 ms | INT8 2.08 ms → 0.59× speedup (i.e., slower)
+      - CPU EP:  FP32 0.48 ms | INT8 1.15 ms → 0.41× speedup (slower, expected for small model)
+      - Note: DistilGPT2 is tiny; dynamic-INT8 reduces weight size but often doesn’t beat FP32 latency.
+  [⛔] 3.9.3 TensorRT optimization — SKIPPED (TensorRT libs not available in Colab runtime)
+  [✅] 3.9.4 Compare against BitsAndBytes results — Added note: ORT INT8 slower than FP16/4-bit on T4 for small model
+  [✅] 3.9.5 Document in `reports/onnx_experiments.md`
+  [✅] 3.9.6 Committed
     Assignee: sami (Stretch Goal)
     Dependencies: Task 3.7
     Note: Skip if time constrained
