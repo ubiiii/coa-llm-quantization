@@ -415,6 +415,95 @@ class LLMBenchmark:
         
         print(f"✅ CSV exported to {filename}")
 
+    def measure_perplexity(self, test_texts: List[str]) -> Dict[str, float]:
+        """
+        Measure perplexity on test texts - CRITICAL for accuracy analysis.
+        
+        Args:
+            test_texts: List of test sentences/texts
+            
+        Returns:
+            Dictionary with perplexity metrics
+        """
+        self.model.eval()
+        total_loss = 0
+        total_tokens = 0
+        
+        print(f"🔍 Measuring perplexity on {len(test_texts)} test texts...")
+        
+        with torch.no_grad():
+            for i, text in enumerate(test_texts):
+                if i % 10 == 0:
+                    print(f"  Processing text {i+1}/{len(test_texts)}")
+                
+                # Tokenize text
+                inputs = self.tokenizer(text, return_tensors="pt", truncation=True, max_length=512)
+                inputs = {k: v.to(self.device) for k, v in inputs.items()}
+                
+                # Get model outputs
+                outputs = self.model(**inputs, labels=inputs["input_ids"])
+                loss = outputs.loss
+                
+                # Count tokens (excluding padding)
+                num_tokens = (inputs["input_ids"] != self.tokenizer.pad_token_id).sum().item()
+                
+                total_loss += loss.item() * num_tokens
+                total_tokens += num_tokens
+        
+        # Calculate perplexity
+        avg_loss = total_loss / total_tokens if total_tokens > 0 else float('inf')
+        perplexity = np.exp(avg_loss)
+        
+        print(f"✅ Perplexity: {perplexity:.2f}")
+        
+        return {
+            'perplexity': perplexity,
+            'avg_loss': avg_loss,
+            'total_tokens': total_tokens,
+            'num_texts': len(test_texts)
+        }
+
+    def get_wikitext_sample(self, num_samples: int = 100) -> List[str]:
+        """
+        Get sample texts from WikiText-2 for perplexity testing.
+        
+        Args:
+            num_samples: Number of sample texts to return
+            
+        Returns:
+            List of sample texts
+        """
+        # Standard WikiText-2 sample texts for testing
+        sample_texts = [
+            "The quick brown fox jumps over the lazy dog.",
+            "Machine learning is a subset of artificial intelligence.",
+            "Quantization reduces model precision to improve efficiency.",
+            "Hardware acceleration is crucial for deep learning.",
+            "The transformer architecture revolutionized NLP.",
+            "Neural networks require significant computational resources.",
+            "Optimization techniques can improve model performance.",
+            "Distributed training enables larger model training.",
+            "Attention mechanisms allow models to focus on relevant inputs.",
+            "Transfer learning leverages pre-trained models for new tasks.",
+            "Language models can generate human-like text.",
+            "Quantization techniques reduce memory requirements.",
+            "Hardware software co-design improves efficiency.",
+            "GPU acceleration is essential for deep learning.",
+            "Model compression techniques reduce computational costs.",
+            "Inference optimization is crucial for deployment.",
+            "Neural architecture search automates model design.",
+            "Federated learning enables distributed model training.",
+            "Adversarial training improves model robustness.",
+            "Multi-task learning improves generalization."
+        ]
+        
+        # Extend with more samples if needed
+        extended_samples = []
+        for i in range(num_samples):
+            extended_samples.append(sample_texts[i % len(sample_texts)])
+        
+        return extended_samples[:num_samples]
+
 
 def quick_benchmark(model, tokenizer, prompt: str = "Hello, how are you?") -> Dict[str, Any]:
     """
@@ -492,3 +581,6 @@ if __name__ == "__main__":
     print("from benchmark import LLMBenchmark, quick_benchmark")
     print("benchmark = LLMBenchmark(model, tokenizer)")
     print("results = benchmark.run_comprehensive_benchmark()")
+    print("\nNew accuracy features:")
+    print("perplexity_results = benchmark.measure_perplexity(test_texts)")
+    print("sample_texts = benchmark.get_wikitext_sample(50)")
