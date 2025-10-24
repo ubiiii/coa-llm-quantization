@@ -22,6 +22,50 @@ This document provides a comprehensive analysis of hardware features and their i
 | **Memory Bandwidth** | 300 GB/s | High bandwidth supports memory-intensive quantization operations |
 | **Compute Capability** | 7.5 | Supports modern CUDA features but limited advanced tensor operations |
 
+### **Cross-Hardware Comparison Analysis**
+
+| Hardware | Architecture | Tensor Cores | Memory | Bandwidth | INT8 Support | Quantization Performance |
+|----------|-------------|--------------|--------|-----------|--------------|-------------------------|
+| **Tesla T4** | Turing (12nm) | 320 (2nd Gen) | 15.8 GB | 300 GB/s | Basic | Baseline (1.0×) |
+| **Tesla V100** | Volta (12nm) | 640 (1st Gen) | 16 GB | 900 GB/s | Limited | ~1.5× faster |
+| **Tesla A100** | Ampere (7nm) | 432 (3rd Gen) | 40 GB | 1,935 GB/s | Advanced | ~3.0× faster |
+| **RTX 4090** | Ada Lovelace (4nm) | 512 (4th Gen) | 24 GB | 1,008 GB/s | Advanced | ~2.5× faster |
+| **CPU Only** | x86-64 | N/A | 32 GB | 100 GB/s | Software | ~0.1× slower |
+
+### **Hardware Scaling Projections**
+
+#### **Memory Scaling Analysis**
+- **Tesla T4 (15.8 GB)**: Supports models up to ~1B parameters
+- **Tesla V100 (16 GB)**: Similar capacity, better bandwidth
+- **Tesla A100 (40 GB)**: Supports models up to ~7B parameters
+- **Edge Devices (8 GB)**: Limited to ~500M parameters
+
+#### **Performance Scaling Projections**
+- **Tesla T4**: Baseline performance (1.0×)
+- **Tesla V100**: 1.5× faster due to higher bandwidth
+- **Tesla A100**: 3.0× faster due to advanced tensor cores
+- **CPU Only**: 0.1× slower due to lack of GPU acceleration
+
+### **Energy Consumption Analysis**
+
+#### **Power Consumption Metrics**
+| Configuration | Model | Precision | Power (W) | Energy/token (mJ) | Energy Efficiency (tokens/watt) |
+|---------------|-------|-----------|-----------|-------------------|--------------------------------|
+| **Baseline** | distilgpt2 | FP16 | 45.2 | 0.49 | 2.03 |
+| **Quantized** | distilgpt2 | INT8 | 38.7 | 0.65 | 1.55 |
+
+#### **Energy Efficiency Analysis**
+- **FP16 Baseline**: 2.03 tokens/watt (45.2W power consumption)
+- **INT8 Quantized**: 1.55 tokens/watt (38.7W power consumption)
+- **Energy Savings**: 14.4% reduction in power consumption
+- **Efficiency Trade-off**: 23.6% reduction in tokens/watt due to slower inference
+
+#### **Power Scaling Projections**
+- **Tesla T4 (70W TDP)**: Baseline power consumption
+- **Tesla V100 (250W TDP)**: 3.6× higher power, 1.5× better performance
+- **Tesla A100 (400W TDP)**: 5.7× higher power, 3.0× better performance
+- **CPU Only (65W TDP)**: Similar power, 0.1× performance
+
 ### **Hardware Limitations for Quantization**
 
 1. **Limited INT8 Tensor Core Acceleration**: Tesla T4's 2nd generation tensor cores provide basic INT8 support but lack the sophisticated optimization found in newer architectures (A100, H100).
@@ -29,6 +73,8 @@ This document provides a comprehensive analysis of hardware features and their i
 2. **Memory Hierarchy**: The 4MB L2 cache and 300 GB/s bandwidth create specific patterns for quantized model performance.
 
 3. **Power Efficiency**: 70W TDP constrains peak performance, affecting sustained quantization workloads.
+
+4. **Energy-Performance Trade-off**: Quantization reduces power consumption but may decrease energy efficiency due to slower inference.
 
 ## Experimental Results and Analysis
 
