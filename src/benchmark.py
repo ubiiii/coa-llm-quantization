@@ -17,6 +17,8 @@ import csv
 import json
 from datetime import datetime
 import warnings
+from datasets import load_dataset
+from transformers import AutoTokenizer, AutoModelForCausalLM
 warnings.filterwarnings("ignore")
 
 
@@ -573,7 +575,135 @@ def compare_models(model1, tokenizer1, model2, tokenizer2,
     return comparison
 
 
-# Example usage
+    def calculate_perplexity(self, texts: List[str], max_length: int = 512) -> Dict[str, float]:
+        """
+        Calculate perplexity on a dataset of texts.
+        
+        Args:
+            texts: List of text samples to evaluate
+            max_length: Maximum sequence length for evaluation
+            
+        Returns:
+            Dictionary with perplexity metrics
+        """
+        self.model.eval()
+        total_loss = 0.0
+        total_tokens = 0
+        
+        with torch.no_grad():
+            for text in texts[:100]:  # Limit to first 100 texts for efficiency
+                try:
+                    # Tokenize text
+                    inputs = self.tokenizer(
+                        text, 
+                        return_tensors="pt", 
+                        truncation=True, 
+                        max_length=max_length,
+                        padding=True
+                    ).to(self.device)
+                    
+                    # Forward pass
+                    outputs = self.model(**inputs, labels=inputs["input_ids"])
+                    loss = outputs.loss
+                    
+                    # Count tokens (excluding padding)
+                    num_tokens = inputs["input_ids"].numel()
+                    total_loss += loss.item() * num_tokens
+                    total_tokens += num_tokens
+                    
+                except Exception as e:
+                    print(f"Error processing text: {e}")
+                    continue
+        
+        if total_tokens == 0:
+            return {"perplexity": float('inf'), "total_tokens": 0}
+        
+        # Calculate perplexity
+        avg_loss = total_loss / total_tokens
+        perplexity = torch.exp(torch.tensor(avg_loss)).item()
+        
+        return {
+            "perplexity": perplexity,
+            "avg_loss": avg_loss,
+            "total_tokens": total_tokens,
+            "num_texts": len(texts[:100])
+        }
+
+    def evaluate_on_wikitext(self, dataset_name: str = "wikitext", subset: str = "wikitext-2-raw-v1") -> Dict[str, float]:
+        """
+        Evaluate model on WikiText dataset for standardized perplexity measurement.
+        
+        Args:
+            dataset_name: Name of the dataset
+            subset: Specific subset to use
+            
+        Returns:
+            Dictionary with WikiText evaluation metrics
+        """
+        try:
+            # Load WikiText dataset
+            dataset = load_dataset(dataset_name, subset, split="test")
+            
+            # Extract text samples
+            texts = [item["text"] for item in dataset if len(item["text"].strip()) > 50]
+            
+            # Calculate perplexity
+            results = self.calculate_perplexity(texts)
+            
+            return {
+                "wikitext_perplexity": results["perplexity"],
+                "wikitext_avg_loss": results["avg_loss"],
+                "wikitext_total_tokens": results["total_tokens"],
+                "wikitext_num_samples": results["num_texts"]
+            }
+            
+        except Exception as e:
+            print(f"Error loading WikiText dataset: {e}")
+            return {
+                "wikitext_perplexity": float('inf'),
+                "wikitext_avg_loss": float('inf'),
+                "wikitext_total_tokens": 0,
+                "wikitext_num_samples": 0,
+                "error": str(e)
+            }
+
+    def comprehensive_accuracy_evaluation(self) -> Dict[str, Any]:
+        """
+        Comprehensive accuracy evaluation including perplexity and quality metrics.
+        
+        Returns:
+            Dictionary with comprehensive accuracy metrics
+        """
+        print("Starting comprehensive accuracy evaluation...")
+        
+        # WikiText evaluation
+        wikitext_results = self.evaluate_on_wikitext()
+        
+        # Quality evaluation on test prompts
+        quality_scores = []
+        for prompt in self.test_prompts:
+            generated = self.generate_text(prompt, max_new_tokens=50)
+            quality = self.calculate_quality_score(generated)
+            quality_scores.append(quality)
+        
+        avg_quality = np.mean(quality_scores) if quality_scores else 3.0
+        
+        return {
+            "accuracy_metrics": {
+                "wikitext_perplexity": wikitext_results.get("wikitext_perplexity", float('inf')),
+                "wikitext_avg_loss": wikitext_results.get("wikitext_avg_loss", float('inf')),
+                "quality_score_avg": avg_quality,
+                "quality_score_std": np.std(quality_scores) if quality_scores else 0.0,
+                "quality_scores": quality_scores
+            },
+            "evaluation_details": {
+                "num_test_prompts": len(self.test_prompts),
+                "wikitext_samples": wikitext_results.get("wikitext_num_samples", 0),
+                "total_tokens_evaluated": wikitext_results.get("wikitext_total_tokens", 0)
+            }
+        }
+
+
 if __name__ == "__main__":
     print("LLM Benchmarking Utilities")
     print("Import this module to use the LLMBenchmark class")
@@ -582,5 +712,6 @@ if __name__ == "__main__":
     print("benchmark = LLMBenchmark(model, tokenizer)")
     print("results = benchmark.run_comprehensive_benchmark()")
     print("\nNew accuracy features:")
-    print("perplexity_results = benchmark.measure_perplexity(test_texts)")
-    print("sample_texts = benchmark.get_wikitext_sample(50)")
+    print("perplexity_results = benchmark.calculate_perplexity(test_texts)")
+    print("wikitext_results = benchmark.evaluate_on_wikitext()")
+    print("accuracy_results = benchmark.comprehensive_accuracy_evaluation()")
