@@ -39,10 +39,10 @@ This project investigates hardware-aware quantization strategies for Large Langu
 | Model | Precision | Speed | Speedup | Memory Reduction | Perplexity |
 |-------|-----------|-------|---------|------------------|------------|
 | TinyLlama-1.1B | FP16 | 34.53 tokens/s | 1.0× (baseline) | 0% | 16,813.13 |
-| distilgpt2 | FP16 | 91.81 tokens/s | 1.0× (baseline) | 0% | 82.28 |
-| distilgpt2 | INT8 | 59.93 tokens/s | 0.65× (slower) | 12% | 83.20 |
-| DialoGPT-small | FP16 | 28.42 tokens/s | 1.0× (baseline) | 0% | 41,021.00 |
-| DialoGPT-small | INT8 | 5.58 tokens/s | 0.52× (slower) | 50% | 42,375.57 |
+| distilgpt2 | FP16 | 91.81 tokens/s | 1.0× (baseline) | 0% | 69.96 |
+| distilgpt2 | INT8 | 59.93 tokens/s | 0.65× (slower) | 12% | N/A (bitsandbytes error) |
+| DialoGPT-small | FP16 | 28.42 tokens/s | 1.0× (baseline) | 0% | 27,466.36 |
+| DialoGPT-small | INT8 | 5.58 tokens/s | 0.52× (slower) | 50% | N/A (bitsandbytes error) |
 | Llama-3.2-1B | INT4 | 157.11 tokens/s | **4.55×** | 75% | N/A |
 | ONNX Runtime | INT8 | 24.4 tokens/s | **1.69×** | 50% | N/A |
 

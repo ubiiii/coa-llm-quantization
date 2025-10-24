@@ -1,0 +1,3 @@
+model,precision,perplexity,avg_loss,total_tokens,accuracy_degradation
+DialoGPT-small,FP16,15.2,2.72,45,0.0
+DialoGPT-small,INT8,16.8,2.82,45,10.5

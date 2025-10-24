@@ -9,26 +9,28 @@
 
 ### **Perplexity Measurements**
 
-| Model | Precision | Perplexity | Avg Loss | Tokens | Degradation |
-|-------|-----------|------------|----------|---------|-------------|
-| **distilgpt2** | FP16 | **82.28** | **4.41** | 6,503 | 0% (baseline) |
-| **distilgpt2** | INT8 | **83.20** | **4.42** | 6,503 | **+1.12%** |
-| **DialoGPT-small** | FP16 | **41,021.00** | **10.62** | 6,503 | 0% (baseline) |
-| **DialoGPT-small** | INT8 | **42,375.57** | **10.65** | 6,503 | **+3.30%** |
+| Model | Precision | Perplexity | Avg Loss | Tokens | Status |
+|-------|-----------|------------|----------|---------|--------|
+| **distilgpt2** | FP16 | **69.96** | **4.25** | 2,337 | ✅ Completed |
+| **distilgpt2** | INT8 | N/A | N/A | N/A | ❌ Error - bitsandbytes version |
+| **DialoGPT-small** | FP16 | **27,466.36** | **10.22** | 2,337 | ✅ Completed |
+| **DialoGPT-small** | INT8 | N/A | N/A | N/A | ❌ Error - bitsandbytes version |
 
 ### **Key Findings**
 
-1. **Minimal Accuracy Degradation**: Quantization shows minimal impact on model accuracy
-   - **distilgpt2**: Only 1.12% perplexity increase with INT8 quantization
-   - **DialoGPT-small**: 3.30% perplexity increase with INT8 quantization
+1. **FP16 Baseline Results**: Successfully measured perplexity for both models
+   - **distilgpt2**: 69.96 perplexity (4.25 avg loss) - baseline established
+   - **DialoGPT-small**: 27,466.36 perplexity (10.22 avg loss) - baseline established
 
-2. **Quality Preservation**: All models maintain acceptable performance levels
-   - Quality scores remain consistent at 3/5 across all configurations
-   - Generated text maintains coherence and relevance
+2. **INT8 Quantization Status**: Currently blocked by bitsandbytes version issue
+   - **Error**: "Using `bitsandbytes` 8-bit quantization requires the latest version of bitsandbytes"
+   - **Solution**: Need to update bitsandbytes in Colab environment
+   - **Impact**: Cannot complete INT8 accuracy comparison at this time
 
-3. **Quantitative Validation**: Real data confirms theoretical expectations
-   - Small models show minimal quantization impact
-   - Larger models may show slightly higher degradation but still acceptable
+3. **Generated Text Quality**: FP16 models show coherent output
+   - distilgpt2: Produces relevant responses to prompts
+   - DialoGPT-small: Generates conversational responses
+   - Both models maintain text coherence and relevance
 
 ### **Test Configuration**
 

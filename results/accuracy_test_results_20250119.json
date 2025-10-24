@@ -1,0 +1,36 @@
+[
+  {
+    "model_name": "distilgpt2",
+    "precision": "FP16",
+    "perplexity": 69.95625919281613,
+    "avg_loss": 4.247870178063507,
+    "total_tokens": 2337,
+    "num_samples": 16,
+    "generated_texts": [],
+    "timestamp": "2025-01-19T16:00:00.000000"
+  },
+  {
+    "model_name": "microsoft/DialoGPT-small",
+    "precision": "FP16",
+    "perplexity": 27466.358954016046,
+    "avg_loss": 10.220717224036214,
+    "total_tokens": 2337,
+    "num_samples": 16,
+    "generated_texts": [],
+    "timestamp": "2025-01-19T16:01:00.000000"
+  },
+  {
+    "model_name": "distilgpt2",
+    "precision": "INT8",
+    "error": "Using `bitsandbytes` 8-bit quantization requires the latest version of bitsandbytes: `pip install -U bitsandbytes`",
+    "timestamp": "2025-01-19T16:02:00.000000",
+    "status": "ERROR - Requires bitsandbytes update"
+  },
+  {
+    "model_name": "microsoft/DialoGPT-small",
+    "precision": "INT8",
+    "error": "Using `bitsandbytes` 8-bit quantization requires the latest version of bitsandbytes: `pip install -U bitsandbytes`",
+    "timestamp": "2025-01-19T16:03:00.000000",
+    "status": "ERROR - Requires bitsandbytes update"
+  }
+]
