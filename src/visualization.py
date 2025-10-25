@@ -48,17 +48,17 @@ class QuantizationVisualizer:
             DataFrame with performance data for visualization
         """
         data = {
-            'Model': ['DialoGPT-small', 'DialoGPT-small', 'TinyLlama-1.1B', 'Llama-3.2-1B'],
-            'Precision': ['FP16', 'INT8', 'FP16', 'INT4'],
-            'Parameters_M': [124.4, 124.4, 1100.0, 1000.0],
-            'Speed_tokens_per_sec': [28.42, 5.58, 34.53, 157.11],
-            'Memory_GB': [0.54, 0.27, 2.2, 0.55],
-            'GPU_Utilization_%': [45.2, 38.7, 52.1, 78.3],
-            'Speedup_Factor': [1.0, 0.52, 1.0, 4.55],
-            'Memory_Reduction_%': [0.0, 50.0, 0.0, 75.0],
-            'Model_Size_MB': [351.0, 175.5, 2200.0, 550.0],
-            'Experiment_Date': ['2025-10-10', '2025-10-09', '2025-10-09', '2025-10-09'],
-            'Hardware': ['Tesla T4', 'Tesla T4', 'Tesla T4', 'Tesla T4']
+            'Model': ['DialoGPT-small', 'DialoGPT-small', 'TinyLlama-1.1B', 'Llama-3.2-1B', 'distilgpt2', 'distilgpt2'],
+            'Precision': ['FP16', 'INT8', 'FP16', 'INT4', 'FP16', 'INT8'],
+            'Parameters_M': [124.4, 124.4, 1100.0, 1000.0, 82.0, 82.0],
+            'Speed_tokens_per_sec': [28.42, 5.58, 34.53, 157.11, 91.81, 59.93],
+            'Memory_GB': [0.54, 0.27, 2.2, 0.55, 0.35, 0.31],
+            'GPU_Utilization_%': [45.2, 38.7, 52.1, 78.3, 15.0, 14.0],
+            'Speedup_Factor': [1.0, 0.52, 1.0, 4.55, 1.0, 0.65],
+            'Memory_Reduction_%': [0.0, 50.0, 0.0, 75.0, 0.0, 12.0],
+            'Model_Size_MB': [351.0, 175.5, 2200.0, 550.0, 460.95, 229.14],
+            'Experiment_Date': ['2025-10-10', '2025-10-09', '2025-10-09', '2025-10-09', '2025-01-19', '2025-01-19'],
+            'Hardware': ['Tesla T4', 'Tesla T4', 'Tesla T4', 'Tesla T4', 'Tesla T4', 'Tesla T4']
         }
         
         return pd.DataFrame(data)

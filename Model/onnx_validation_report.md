@@ -1,6 +1,5 @@
 # ONNX Model Validation Report
 
-**Date:** January 19, 2025  
 **Team:** CipherCore (Utkarsh & Sami)  
 **Project:** Hardware/Software Co-Design for LLM Quantization  
 **Task:** 3.9 - Hardware-Assisted Inference (ONNX)

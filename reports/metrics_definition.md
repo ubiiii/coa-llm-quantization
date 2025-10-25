@@ -1,7 +1,6 @@
 # Evaluation Metrics Definition
 
 **Team:** CipherCore (Utkarsh & Sami)  
-**Date:** October 2025  
 **Project:** Hardware/Software Co-Design for LLM Quantization
 
 ## Overview

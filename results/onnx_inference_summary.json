@@ -1,9 +1,8 @@
 {
-  "task_3_9_summary": {
+  "hardware_assisted_inference": {
     "task_id": "3.9",
-    "task_name": "Hardware-Assisted Inference",
+    "task_name": "Hardware-Assisted Inference with ONNX",
     "status": "COMPLETED",
-    "completion_date": "2025-01-19",
     "assignee": "Utkarsh",
     "priority": "P2",
     "estimated_hours": 6,
@@ -135,13 +134,13 @@
       "model.with_past.int8.onnx"
     ],
     "documentation": [
-      "reports/task_3_9_onnx_results.md",
+      "reports/onnx_inference_analysis.md",
       "results/experiment_log.md (updated)",
       "results/baseline_benchmark_results.csv (updated)",
       "updates/project_todo.txt (updated)"
     ],
     "results_data": [
-      "results/task_3_9_summary.json"
+      "results/onnx_inference_summary.json"
     ]
   },
   "key_insights": {

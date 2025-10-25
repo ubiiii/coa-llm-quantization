@@ -1,6 +1,5 @@
 # ONNX Model Files Summary
 
-**Generated on:** 2025-10-24 04:13:15
 **Model:** distilgpt2
 **Purpose:** Task 3.9 - Hardware-Assisted Inference (ONNX)
 

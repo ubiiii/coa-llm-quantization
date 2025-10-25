@@ -1,7 +1,6 @@
 # Key Takeaways and Recommendations: LLM Quantization Hardware/Software Co-Design
 
 **Team:** CipherCore (Utkarsh & Sami)  
-**Date:** January 19, 2025  
 **Project:** Hardware/Software Co-Design for LLM Quantization  
 **Task:** 4.3 - Key Takeaways and Recommendations
 

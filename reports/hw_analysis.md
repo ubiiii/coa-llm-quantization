@@ -1,7 +1,6 @@
 # Hardware Feature Analysis: Tesla T4 GPU Performance in LLM Quantization
 
 **Team:** CipherCore (Utkarsh & Sami)  
-**Date:** January 19, 2025  
 **Project:** Hardware/Software Co-Design for LLM Quantization  
 **Task:** 4.1 - Hardware Feature Analysis
 

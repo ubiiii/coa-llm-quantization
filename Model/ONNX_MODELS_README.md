@@ -6,7 +6,6 @@ This directory contains the ONNX model files generated for **Task 3.9: Hardware-
 
 ## 🎯 Task 3.9 Status: ✅ COMPLETED
 
-**Project Grade:** 99% (A+)  
 **Team:** CipherCore (Utkarsh & Sami)
 
 ## 📁 Model Files
@@ -115,7 +114,6 @@ The following scripts were created and uploaded to GitHub:
 Task 3.9 has been successfully completed with all ONNX model files generated, validated, and documented. The models demonstrate proper quantization (50% size reduction for INT8) and include both basic and KV cache variants as required.
 
 **Status:** ✅ COMPLETED  
-**Grade:** 99% (A+)  
 **Audit Ready:** ✅ YES
 
 ---

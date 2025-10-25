@@ -1,7 +1,6 @@
 # Experimental Results: LLM Quantization Performance Analysis
 
 **Team:** CipherCore (Utkarsh & Sami)  
-**Date:** January 2025  
 **Hardware:** Google Colab Tesla T4 (15GB VRAM, CUDA 12.6)  
 **Software:** PyTorch 2.8.0+cu126, Transformers 4.57.0, BitsAndBytes 0.48.1
 

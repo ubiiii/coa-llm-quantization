@@ -1,4 +1,4 @@
-# 🗺️ **- ROADMAP - LLM Quantization Project**
+# 🗺️ **Project ROADMAP - LLM Quantization Project**
 
 ## **Welcome to the Project! 👋**
 
@@ -239,7 +239,7 @@ This roadmap will guide you through every file in the project so you can underst
 
 ---
 
-**Total Time Investment: ~3 hours**
+
 **Result: Complete understanding of the project**
 
 **Ready to dive in? Start with `proposal.txt`! 🚀**

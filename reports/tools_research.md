@@ -1,7 +1,6 @@
 # Tool Research: LLM Quantization Libraries and Frameworks
 
 **Team:** CipherCore (Utkarsh & Sami)  
-**Date:** January 2025  
 **Project:** HW/SW Co-Design for LLM Quantization
 
 ## Executive Summary

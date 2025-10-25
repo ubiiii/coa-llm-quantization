@@ -1,7 +1,6 @@
 # Hardware Profiling Analysis: Tesla T4 GPU Performance
 
 **Team:** CipherCore (Utkarsh & Sami)  
-**Date:** October 10, 2025  
 **Project:** Hardware/Software Co-Design for LLM Quantization
 
 ## Executive Summary

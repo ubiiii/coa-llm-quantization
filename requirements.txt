@@ -1,7 +1,6 @@
 # COA Project: Hardware/Software Co-Design for LLM Quantization
 # Requirements file for reproducible environment setup
 # Team: CipherCore (Utkarsh & Sami)
-# Date: January 19, 2025
 
 # Core ML Libraries
 torch==2.8.0+cu126

@@ -1,6 +1,5 @@
 # Accuracy Test Results Summary
 
-**Date:** January 19, 2025  
 **Team:** CipherCore (Utkarsh & Sami)  
 **Test Script:** `src/accuracy_test_script.py`  
 **Dataset:** WikiText-2 (50 samples, 6,503 tokens evaluated)

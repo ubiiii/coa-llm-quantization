@@ -1,7 +1,6 @@
 # Accuracy vs Efficiency Trade-off Analysis: LLM Quantization Performance
 
 **Team:** CipherCore (Utkarsh & Sami)  
-**Date:** January 19, 2025  
 **Project:** Hardware/Software Co-Design for LLM Quantization  
 **Task:** 4.2 - Accuracy vs Efficiency Trade-off Analysis
 

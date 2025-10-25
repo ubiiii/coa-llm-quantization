@@ -1,7 +1,6 @@
 # Quantization Fundamentals: A Comprehensive Guide
 
 **Team:** CipherCore (Utkarsh & Sami)  
-**Date:** Oct 2025  
 **Project:** HW/SW Co-Design for LLM Quantization
 
 ## Table of Contents

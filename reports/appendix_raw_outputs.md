@@ -1,7 +1,6 @@
 # Appendix: Raw Outputs and Logs
 
 **Team:** CipherCore (Utkarsh & Sami)  
-**Date:** January 19, 2025  
 **Project:** Hardware/Software Co-Design for LLM Quantization  
 
 ## Executive Summary
