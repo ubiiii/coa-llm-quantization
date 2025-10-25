@@ -6,7 +6,7 @@
 torch==2.8.0+cu126
 torchvision==0.17.0+cu126
 torchaudio==2.8.0+cu126
-transformers==4.44.2
+transformers==4.53.0
 tokenizers==0.19.1
 accelerate==1.10.1
 
