@@ -14,8 +14,8 @@ This project investigates hardware-aware quantization strategies for Large Langu
 ## Project Structure
 
 ```
-├── CipherCore_Paper.pdf           # Final research paper
-├── CipherCore_presentation.pptx   # 14-slide presentation
+├── CipherCore_Paper.pdf           # Final Summary paper
+├── CipherCore_presentation.pptx   # presentation
 ├── PROJECT_ROADMAP.md             # Complete project guide
 ├── Project Files/                 # All project components
 │   ├── Graphs/                    # Performance visualizations
