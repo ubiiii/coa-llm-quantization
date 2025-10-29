@@ -1,2 +1,0 @@
-gpu_name,memory_total_mib,memory_used_mib,gpu_utilization_percent,temperature_c,power_draw_w,test_timestamp
-Tesla T4,15360,0,0,42,9.07,2024-12-19 15:30:00

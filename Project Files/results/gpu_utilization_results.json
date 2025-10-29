@@ -1,0 +1,10 @@
+{
+  "gpu_name": "Tesla T4",
+  "memory_total_mib": "15360",
+  "memory_used_mib": "0",
+  "gpu_utilization": "0",
+  "temperature": "42",
+  "power_draw": "9.07",
+  "test_timestamp": "2024-12-19 15:30:00",
+  "analysis_notes": "GPU detected but not utilized by PyTorch - shows hardware/software co-design limitations"
+}

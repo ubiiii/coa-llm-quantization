@@ -1,5 +1,0 @@
-model_name,quantization_method,precision,model_size_mb,parameters_millions,inference_speed_tokens_per_sec,memory_usage_gb,memory_reduction_percent,speedup_factor,accuracy_metric,hardware_config,gpu_utilization_percent,tensor_core_usage,test_prompt,generated_output,timestamp,notes
-microsoft/DialoGPT-small,None,FP16,351.0,124.4,10.75,0.7,0.0,1.0,identical_output,Tesla_T4_CUDA_12.6,45.2,No,Hello how are you?,Hello how are you? Good morning everyone!,2025-01-09 17:30:00,Baseline measurement
-microsoft/DialoGPT-small,BitsAndBytes,INT8,175.5,124.4,5.58,0.35,50.0,0.52,identical_output,Tesla_T4_CUDA_12.6,38.7,No,Hello how are you?,Hello how are you? Good morning everyone!,2025-01-09 17:35:00,Quantization overhead for small model
-TinyLlama-1.1B-Chat,None,FP16,2200.0,1100.0,34.53,2.2,0.0,1.0,identical_output,Tesla_T4_CUDA_12.6,52.1,No,Hello how are you?,Hello how are you? I'm doing well thank you!,2025-01-09 18:00:00,Baseline measurement by Sami
-Llama-3.2-1B,GGUF,INT4,550.0,1000.0,157.11,0.55,75.0,4.55,identical_output,Tesla_T4_CUDA_12.6,78.3,Yes,Hello how are you?,Hello how are you? I'm doing well thank you!,2025-01-09 18:15:00,4-bit quantization by Sami

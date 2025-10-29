@@ -1,0 +1,42 @@
+{
+  "timestamp": "2025-10-10T01:08:31.039656",
+  "model_name": "microsoft/DialoGPT-small",
+  "device": "cuda",
+  "prompt": "Hello, how are you?",
+  "max_new_tokens": 10,
+  "speed_metrics": {
+    "mean_time_seconds": 0.194,
+    "std_time_seconds": 0.029,
+    "tokens_per_second": 25.73,
+    "mean_tokens_generated": 5.0,
+    "total_runs": 10,
+    "warmup_runs": 3,
+    "confidence_interval_95": 0.018
+  },
+  "memory_metrics": {
+    "memory_before_gb": 0.54,
+    "memory_after_gb": 0.54,
+    "peak_memory_gb": 0.54,
+    "peak_memory_reserved_gb": 0.65,
+    "memory_increase_gb": 0.0
+  },
+  "quality_metrics": {
+    "generated_text": "Hello, how are you? Good morning everyone!",
+    "output_length": 42,
+    "is_reasonable_length": true,
+    "contains_special_chars": false,
+    "is_identical_to_baseline": null,
+    "quality_score": 3
+  },
+  "hardware_metrics": {
+    "gpu_available": true,
+    "gpu_name": "Tesla T4",
+    "gpu_memory_total_gb": 15.83,
+    "gpu_memory_allocated_gb": 0.54,
+    "gpu_memory_cached_gb": 0.65,
+    "cuda_version": "12.6",
+    "pytorch_version": "2.8.0+cu126"
+  },
+  "test_type": "benchmark_utilities_verification",
+  "notes": "Comprehensive benchmark test to verify benchmarking utilities functionality. All systems working correctly."
+}
