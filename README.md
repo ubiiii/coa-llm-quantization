@@ -20,6 +20,7 @@ We tested whether reducing model precision (INT8, INT4) actually speeds up infer
 ## Project Structure
 
 ```
+├── requirements.txt               # Python dependencies (use: pip install -r requirements.txt)
 ├── CipherCore_Paper.pdf           # Summary Paper
 ├── CipherCore_presentation.pptx   # presentation
 ├── PROJECT_ROADMAP.md             # Complete project guide
@@ -29,7 +30,7 @@ We tested whether reducing model precision (INT8, INT4) actually speeds up infer
 │   ├── notebooks/                 # Experimental notebooks
 │   ├── reports/                   # Analysis and documentation
 │   ├── results/                   # Experimental data
-│   ├── src/                       # Source code implementation
+│   ├── src/                       # Source code implementation (run scripts from here)
 │   ├── Referance/                 # Research papers
 │   └── updates/                   # Project tracking
 └── README.md                      # This file
@@ -87,7 +88,9 @@ We tested whether reducing model precision (INT8, INT4) actually speeds up infer
 4. **Energy Efficiency**: Achieved 14.4% power reduction with maintained accuracy
 5. **Production Guidelines**: Clear deployment recommendations for different model sizes and hardware
 
-## Prerequisites
+## Environment Specification
+
+### **Prerequisites Table**
 
 | Component | Version | Notes |
 |-----------|---------|-------|
@@ -100,6 +103,23 @@ We tested whether reducing model precision (INT8, INT4) actually speeds up infer
 | **Storage** | ~5GB | Free space for models and dependencies |
 
 > **⚠️ Hardware Note:** All benchmarks and results in this project were **tested on Tesla T4 GPU** via Google Colab. Results may vary on other GPU architectures (A100, V100, RTX series, etc.).
+
+### **Quick Setup for Local Execution**
+
+**From repository root directory:**
+
+```bash
+# 1. Install PyTorch with CUDA (required first)
+pip install torch==2.8.0+cu126 torchvision==0.17.0+cu126 torchaudio==2.8.0+cu126 --index-url https://download.pytorch.org/whl/cu126
+
+# 2. Install all dependencies from requirements.txt
+pip install -r requirements.txt
+
+# 3. Verify installation
+python -c "import torch; print('CUDA:', torch.cuda.is_available())"
+```
+
+**Execution Path:** All scripts are located in `Project Files/src/` directory. Navigate there before running benchmarks.
 
 ## Setup Instructions
 
@@ -171,7 +191,7 @@ print("✅ Environment ready for benchmarking!")
 2. Install following NVIDIA instructions for your OS
 3. Verify: `nvcc --version` should show CUDA 12.6
 
-#### Step 2: One-Command Install
+#### Step 2: Install Dependencies
 ```bash
 # Create virtual environment (recommended)
 python -m venv quantization_env
@@ -179,9 +199,14 @@ source quantization_env/bin/activate  # Linux/Mac
 # OR
 quantization_env\Scripts\activate  # Windows
 
-# One-command install all dependencies
-pip install torch==2.8.0+cu126 torchvision==0.17.0+cu126 torchaudio==2.8.0+cu126 --index-url https://download.pytorch.org/whl/cu126 transformers==4.44.2 tokenizers==0.19.1 accelerate==1.10.1 bitsandbytes==0.48.1 auto-gptq==0.6.0 autoawq==0.2.3 onnx==1.19.1 onnxruntime==1.23.1 onnxscript==0.5.4 numpy==1.24.3 pandas==2.0.3 datasets==2.14.5 matplotlib==3.7.2 seaborn==0.12.2 plotly==5.15.0 tqdm==4.65.0 psutil==5.9.5 GPUtil==1.4.0
+# Install PyTorch with CUDA 12.6 support (must be installed first)
+pip install torch==2.8.0+cu126 torchvision==0.17.0+cu126 torchaudio==2.8.0+cu126 --index-url https://download.pytorch.org/whl/cu126
+
+# Install all other dependencies from requirements.txt
+pip install -r requirements.txt
 ```
+
+**Alternative:** If you prefer one command, you can use the long pip install command from the Colab section above.
 
 #### Step 3: Verify Environment
 ```bash
@@ -197,34 +222,45 @@ GPU: [Your GPU Name]
 
 **Note:** Local setup not fully tested; **Colab setup with Tesla T4 is verified and working**.
 
-## Step-by-Step Run Example
+## Local Execution Guide
 
 ### **Complete Workflow: From Clone to Results**
+
+**Prerequisites:** Python 3.9+, CUDA 12.6, NVIDIA GPU (8GB+ VRAM)
 
 ```bash
 # 1. Clone the repository
 git clone https://github.com/ubiiii/coa-llm-quantization.git
 cd coa-llm-quantization
 
-# 2. Navigate to source directory
-cd "Project Files/src"
+# 2. Create and activate virtual environment (recommended)
+python -m venv quantization_env
+source quantization_env/bin/activate  # Linux/Mac
+# OR
+quantization_env\Scripts\activate  # Windows
 
-# 3. Install dependencies (if not using Colab) - one command
-pip install torch==2.8.0+cu126 torchvision==0.17.0+cu126 torchaudio==2.8.0+cu126 --index-url https://download.pytorch.org/whl/cu126 transformers==4.44.2 tokenizers==0.19.1 accelerate==1.10.1 bitsandbytes==0.48.1 auto-gptq==0.6.0 autoawq==0.2.3 onnx==1.19.1 onnxruntime==1.23.1 onnxscript==0.5.4 numpy==1.24.3 pandas==2.0.3 datasets==2.14.5 matplotlib==3.7.2 seaborn==0.12.2 plotly==5.15.0 tqdm==4.65.0 psutil==5.9.5 GPUtil==1.4.0
+# 3. Install PyTorch with CUDA support (required first)
+pip install torch==2.8.0+cu126 torchvision==0.17.0+cu126 torchaudio==2.8.0+cu126 --index-url https://download.pytorch.org/whl/cu126
 
-# 4. Validate environment (quick check)
+# 4. Install all other dependencies from requirements.txt
+pip install -r requirements.txt
+
+# 5. Validate environment (quick check)
 python -c "import torch; print('✅ CUDA:', torch.cuda.is_available(), 'GPU:', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'None')"
 
-# 5. Run full benchmark suite (takes ~2 hours on Tesla T4)
+# 6. Navigate to source directory
+cd "Project Files/src"
+
+# 7. Run full benchmark suite (takes ~2 hours on Tesla T4)
 python colab_test_benchmark.py
 
-# 6. Run accuracy tests (takes ~10 minutes)
+# 8. Run accuracy tests (takes ~10 minutes)
 python colab_accuracy_test.py --models distilgpt2,dialogpt-small
 
-# 7. Generate visualizations
+# 9. Generate visualizations
 python colab_visualization.py
 
-# 8. Validate ONNX models
+# 10. Validate ONNX models
 python validate_onnx_models.py
 ```
 
@@ -235,9 +271,19 @@ python validate_onnx_models.py
 
 ### **Quick Test (5 minutes)**
 ```bash
+# From repository root
 cd "Project Files/src"
 python colab_test_benchmark.py  # Quick test with fewer runs
 ```
+
+### **Local Execution Path Summary**
+
+| Step | Command | Working Directory |
+|------|---------|-------------------|
+| Clone repo | `git clone https://github.com/ubiiii/coa-llm-quantization.git` | Any |
+| Install deps | `pip install -r requirements.txt` | Repository root |
+| Run scripts | `python colab_test_benchmark.py` | `Project Files/src/` |
+| View results | Check `Project Files/results/` | Repository root |
 
 ## Quick Environment Validation
 
