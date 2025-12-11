@@ -87,19 +87,19 @@ We tested whether reducing model precision (INT8, INT4) actually speeds up infer
 4. **Energy Efficiency**: Achieved 14.4% power reduction with maintained accuracy
 5. **Production Guidelines**: Clear deployment recommendations for different model sizes and hardware
 
-## Environment Requirements
+## Prerequisites
 
-### **Hardware Configuration**
-- **GPU:** NVIDIA Tesla T4 (15GB VRAM) - tested on Google Colab
-- **Minimum GPU:** NVIDIA GPU with CUDA 12.6 support (8GB VRAM minimum)
-- **RAM:** 4GB+ system RAM recommended
-- **Storage:** ~5GB free space for models and dependencies
+| Component | Version | Notes |
+|-----------|---------|-------|
+| **Python** | 3.12.11 | Tested version (3.9+ required) |
+| **CUDA** | 12.6 | Required for PyTorch 2.8.0+cu126 |
+| **cuDNN** | 8.9+ | Included with CUDA toolkit |
+| **GPU** | Tesla T4 | **Tested on Tesla T4** (15GB VRAM) - minimum 8GB VRAM |
+| **OS** | Linux/Windows/macOS | Linux (Colab) recommended |
+| **RAM** | 4GB+ | System RAM recommended |
+| **Storage** | ~5GB | Free space for models and dependencies |
 
-### **Software Stack**
-- **OS:** Linux (Google Colab) or Windows 10/11 / macOS (local setup)
-- **Python:** 3.12.11 (tested), Python 3.9+ required
-- **CUDA:** 12.6 (required for PyTorch 2.8.0+cu126)
-- **cuDNN:** 8.9+ (included with CUDA toolkit)
+> **⚠️ Hardware Note:** All benchmarks and results in this project were **tested on Tesla T4 GPU** via Google Colab. Results may vary on other GPU architectures (A100, V100, RTX series, etc.).
 
 ## Setup Instructions
 
@@ -111,43 +111,55 @@ We tested whether reducing model precision (INT8, INT4) actually speeds up infer
 3. Set **Hardware Accelerator: GPU → Tesla T4**
 4. Free tier provides ~15 hours/week of GPU access
 
-#### Step 2: Install Dependencies
-Run these commands in a Colab cell:
+#### Step 2: One-Command Install
+Run this single command in a Colab cell to install all dependencies:
 
 ```python
-# Install PyTorch with CUDA 12.6 support
-!pip install torch==2.8.0+cu126 torchvision==0.17.0+cu126 torchaudio==2.8.0+cu126 --index-url https://download.pytorch.org/whl/cu126
+!pip install torch==2.8.0+cu126 torchvision==0.17.0+cu126 torchaudio==2.8.0+cu126 --index-url https://download.pytorch.org/whl/cu126 transformers==4.44.2 tokenizers==0.19.1 accelerate==1.10.1 bitsandbytes==0.48.1 auto-gptq==0.6.0 autoawq==0.2.3 onnx==1.19.1 onnxruntime==1.23.1 onnxscript==0.5.4 numpy==1.24.3 pandas==2.0.3 datasets==2.14.5 matplotlib==3.7.2 seaborn==0.12.2 plotly==5.15.0 tqdm==4.65.0 psutil==5.9.5 GPUtil==1.4.0
+```
 
-# Install core ML libraries
-!pip install transformers==4.44.2 tokenizers==0.19.1 accelerate==1.10.1
+#### Step 3: Verify Environment
+Run this validation command to ensure everything is ready:
 
-# Install quantization libraries
-!pip install bitsandbytes==0.48.1 auto-gptq==0.6.0 autoawq==0.2.3
-
-# Install ONNX Runtime
-!pip install onnx==1.19.1 onnxruntime==1.23.1 onnxscript==0.5.4
-
-# Install data processing and visualization
-!pip install numpy==1.24.3 pandas==2.0.3 datasets==2.14.5 matplotlib==3.7.2 seaborn==0.12.2 plotly==5.15.0
-
-# Install utilities
-!pip install tqdm==4.65.0 psutil==5.9.5 GPUtil==1.4.0
-
-# Verify installation
+```python
+# Quick environment validation
 import torch
+import transformers
+import bitsandbytes as bnb
+import onnxruntime
+
+print("🔍 Environment Validation")
+print("=" * 50)
 print(f"✅ PyTorch: {torch.__version__}")
 print(f"✅ CUDA Available: {torch.cuda.is_available()}")
-print(f"✅ GPU: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'No GPU'}")
+if torch.cuda.is_available():
+    print(f"✅ GPU: {torch.cuda.get_device_name(0)}")
+    print(f"✅ CUDA Version: {torch.version.cuda}")
+    print(f"✅ GPU Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
+print(f"✅ Transformers: {transformers.__version__}")
+print(f"✅ BitsAndBytes: {bnb.__version__}")
+print(f"✅ ONNX Runtime: {onnxruntime.__version__}")
+print("=" * 50)
+print("✅ Environment ready for benchmarking!")
 ```
 
 **Expected Output:**
 ```
+🔍 Environment Validation
+==================================================
 ✅ PyTorch: 2.8.0+cu126
 ✅ CUDA Available: True
 ✅ GPU: Tesla T4
+✅ CUDA Version: 12.6
+✅ GPU Memory: 15.83 GB
+✅ Transformers: 4.44.2
+✅ BitsAndBytes: 0.48.1
+✅ ONNX Runtime: 1.23.1
+==================================================
+✅ Environment ready for benchmarking!
 ```
 
-#### Step 3: Upload and Run Notebook
+#### Step 4: Upload and Run Notebook
 1. Upload `Project Files/notebooks/coa-llm-quantization.ipynb` to Colab
 2. Run cells sequentially
 3. **Expected Setup Time:** 5-10 minutes (first run downloads ~2GB packages + ~500MB-2GB models)
@@ -159,7 +171,7 @@ print(f"✅ GPU: {torch.cuda.get_device_name(0) if torch.cuda.is_available() els
 2. Install following NVIDIA instructions for your OS
 3. Verify: `nvcc --version` should show CUDA 12.6
 
-#### Step 2: Install Python Dependencies
+#### Step 2: One-Command Install
 ```bash
 # Create virtual environment (recommended)
 python -m venv quantization_env
@@ -167,18 +179,14 @@ source quantization_env/bin/activate  # Linux/Mac
 # OR
 quantization_env\Scripts\activate  # Windows
 
-# Install from requirements file
-pip install -r "Project Files/requirements.txt"
+# One-command install all dependencies
+pip install torch==2.8.0+cu126 torchvision==0.17.0+cu126 torchaudio==2.8.0+cu126 --index-url https://download.pytorch.org/whl/cu126 transformers==4.44.2 tokenizers==0.19.1 accelerate==1.10.1 bitsandbytes==0.48.1 auto-gptq==0.6.0 autoawq==0.2.3 onnx==1.19.1 onnxruntime==1.23.1 onnxscript==0.5.4 numpy==1.24.3 pandas==2.0.3 datasets==2.14.5 matplotlib==3.7.2 seaborn==0.12.2 plotly==5.15.0 tqdm==4.65.0 psutil==5.9.5 GPUtil==1.4.0
+```
 
-# OR install manually with exact versions:
-pip install torch==2.8.0+cu126 torchvision==0.17.0+cu126 torchaudio==2.8.0+cu126 --index-url https://download.pytorch.org/whl/cu126
-pip install transformers==4.44.2 tokenizers==0.19.1 accelerate==1.10.1
-pip install bitsandbytes==0.48.1 onnx==1.19.1 onnxruntime==1.23.1
-pip install numpy==1.24.3 pandas==2.0.3 datasets==2.14.5 matplotlib==3.7.2 seaborn==0.12.2
-pip install tqdm==4.65.0 psutil==5.9.5 GPUtil==1.4.0
-
-# Verify GPU access
-python -c "import torch; print(f'CUDA Available: {torch.cuda.is_available()}'); print(f'GPU: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else \"No GPU\"}')"
+#### Step 3: Verify Environment
+```bash
+# Quick validation command
+python -c "import torch; import transformers; import bitsandbytes as bnb; import onnxruntime; print('🔍 Environment Validation'); print('='*50); print(f'✅ PyTorch: {torch.__version__}'); print(f'✅ CUDA Available: {torch.cuda.is_available()}'); print(f'✅ GPU: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else \"No GPU\"}'); print(f'✅ Transformers: {transformers.__version__}'); print(f'✅ BitsAndBytes: {bnb.__version__}'); print(f'✅ ONNX Runtime: {onnxruntime.__version__}'); print('='*50); print('✅ Environment ready!')"
 ```
 
 **Expected Output:**
@@ -187,7 +195,7 @@ CUDA Available: True
 GPU: [Your GPU Name]
 ```
 
-**Note:** Local setup not fully tested; Colab setup is verified and working.
+**Note:** Local setup not fully tested; **Colab setup with Tesla T4 is verified and working**.
 
 ## Step-by-Step Run Example
 
@@ -201,19 +209,22 @@ cd coa-llm-quantization
 # 2. Navigate to source directory
 cd "Project Files/src"
 
-# 3. Install dependencies (if not using Colab)
-pip install -r ../requirements.txt
+# 3. Install dependencies (if not using Colab) - one command
+pip install torch==2.8.0+cu126 torchvision==0.17.0+cu126 torchaudio==2.8.0+cu126 --index-url https://download.pytorch.org/whl/cu126 transformers==4.44.2 tokenizers==0.19.1 accelerate==1.10.1 bitsandbytes==0.48.1 auto-gptq==0.6.0 autoawq==0.2.3 onnx==1.19.1 onnxruntime==1.23.1 onnxscript==0.5.4 numpy==1.24.3 pandas==2.0.3 datasets==2.14.5 matplotlib==3.7.2 seaborn==0.12.2 plotly==5.15.0 tqdm==4.65.0 psutil==5.9.5 GPUtil==1.4.0
 
-# 4. Run full benchmark suite (takes ~2 hours on Tesla T4)
+# 4. Validate environment (quick check)
+python -c "import torch; print('✅ CUDA:', torch.cuda.is_available(), 'GPU:', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'None')"
+
+# 5. Run full benchmark suite (takes ~2 hours on Tesla T4)
 python colab_test_benchmark.py
 
-# 5. Run accuracy tests (takes ~10 minutes)
+# 6. Run accuracy tests (takes ~10 minutes)
 python colab_accuracy_test.py --models distilgpt2,dialogpt-small
 
-# 6. Generate visualizations
+# 7. Generate visualizations
 python colab_visualization.py
 
-# 7. Validate ONNX models
+# 8. Validate ONNX models
 python validate_onnx_models.py
 ```
 
@@ -227,6 +238,32 @@ python validate_onnx_models.py
 cd "Project Files/src"
 python colab_test_benchmark.py  # Quick test with fewer runs
 ```
+
+## Quick Environment Validation
+
+Before running benchmarks, verify your environment is ready with this one-liner:
+
+```bash
+# Quick validation (run from Project Files/src directory)
+python -c "import torch; import transformers; import bitsandbytes as bnb; import onnxruntime; print('🔍 Environment Validation'); print('='*50); print(f'✅ PyTorch: {torch.__version__}'); print(f'✅ CUDA Available: {torch.cuda.is_available()}'); print(f'✅ GPU: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else \"No GPU - Check CUDA installation\"}'); print(f'✅ CUDA Version: {torch.version.cuda if torch.cuda.is_available() else \"N/A\"}'); print(f'✅ Transformers: {transformers.__version__}'); print(f'✅ BitsAndBytes: {bnb.__version__}'); print(f'✅ ONNX Runtime: {onnxruntime.__version__}'); print('='*50); assert torch.cuda.is_available(), '❌ CUDA not available - cannot run benchmarks'; print('✅ Environment ready for benchmarking!')"
+```
+
+**Expected Output (Tesla T4):**
+```
+🔍 Environment Validation
+==================================================
+✅ PyTorch: 2.8.0+cu126
+✅ CUDA Available: True
+✅ GPU: Tesla T4
+✅ CUDA Version: 12.6
+✅ Transformers: 4.44.2
+✅ BitsAndBytes: 0.48.1
+✅ ONNX Runtime: 1.23.1
+==================================================
+✅ Environment ready for benchmarking!
+```
+
+> **⚠️ Important:** All benchmarks in this project were **tested on Tesla T4 GPU**. If you're using a different GPU, results may vary. The validation command will show your GPU name.
 
 ## File Structure & Script Purposes
 
@@ -370,7 +407,28 @@ python validate_onnx_models.py
 
 ## Expected Output
 
-### **Sample Terminal Output from Benchmark Run**
+### **Sample Terminal Output from `benchmark.py`**
+
+When running a quick test with `benchmark.py`, you should see output like:
+
+```bash
+cd "Project Files/src"
+python -c "from benchmark import LLMBenchmark; from transformers import AutoTokenizer, AutoModelForCausalLM; import torch; model = AutoModelForCausalLM.from_pretrained('distilgpt2'); tokenizer = AutoTokenizer.from_pretrained('distilgpt2'); benchmark = LLMBenchmark(model, tokenizer); result = benchmark.measure_inference_speed('Hello world', num_runs=10, warmup_runs=2); print(f'Speed: {result[\"tokens_per_second\"]:.2f} tokens/sec')"
+```
+
+**Expected Output:**
+```
+Loading model 'distilgpt2'...
+✅ Model loaded successfully
+Running 2 warmup runs...
+Running 10 inference runs...
+Progress: [████████████████████] 100%
+Speed: 91.81 tokens/sec
+Average time: 0.0109 seconds
+Standard deviation: 0.00012 seconds
+```
+
+### **Sample Terminal Output from Full Benchmark Run**
 
 When running `python colab_test_benchmark.py`, you should see output like:
 
@@ -416,6 +474,8 @@ Evaluating on WikiText-2 (50 samples)...
 ✅ Benchmark utilities are fully functional!
 ✅ Results saved to ../results/baseline_benchmark_results.csv
 ```
+
+> **💡 Hardware Note:** These results were obtained on **Tesla T4 GPU**. Performance may vary on different GPU architectures.
 
 ### **Sample Results File Output**
 
